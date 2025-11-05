@@ -1,0 +1,71 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Fri Oct 31 05:53:11 2025
+[*]
+[dumpfile] "/mnt/c/Users/Takano/OneDrive/ドキュメント/記録簿/SPIN/axi/tb/sim_build/axi_m_read.vcd"
+[dumpfile_mtime] "Fri Oct 31 05:51:38 2025"
+[dumpfile_size] 44701
+[savefile] "/mnt/c/Users/Takano/OneDrive/ドキュメント/記録簿/SPIN/axi/tb/sim_build/read_sig.gtkw"
+[timestart] 0
+[size] 1492 751
+[pos] 371 248
+*-19.000000 2790000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_axi_mr.
+[treeopen] tb_axi_mr.u_axi_m_read.
+[sst_width] 214
+[signals_width] 198
+[sst_expanded] 1
+[sst_vpaned_height] 198
+@28
+tb_axi_mr.u_axi_m_read.M_ACLK
+tb_axi_mr.u_axi_m_read.M_ARESETN
+@200
+-
+@22
+tb_axi_mr.u_axi_m_read.i_read_size[31:0]
+tb_axi_mr.u_axi_m_read.i_start_address[31:0]
+@29
+tb_axi_mr.u_axi_m_read.o_fifo_en
+@22
+tb_axi_mr.u_axi_m_read.o_fifo_data[31:0]
+@28
+tb_axi_mr.u_axi_m_read.i_ren
+tb_axi_mr.u_axi_m_read.i_fifo_full
+tb_axi_mr.u_axi_m_read.r_rstate[2:0]
+tb_axi_mr.u_axi_m_read.r_burst_addr
+tb_axi_mr.u_axi_m_read.r_burst_busy
+@200
+-
+@22
+tb_axi_mr.u_axi_m_read.r_burst_count[7:0]
+@200
+-
+@22
+tb_axi_mr.u_axi_m_read.r_total_size[31:0]
+tb_axi_mr.u_axi_m_read.r_rem_size[31:0]
+@200
+-
+-Addr
+@22
+tb_axi_mr.u_axi_m_read.M_ARADDR[31:0]
+@28
+tb_axi_mr.u_axi_m_read.M_ARBURST[1:0]
+@22
+tb_axi_mr.u_axi_m_read.M_ARCACHE[3:0]
+@28
+tb_axi_mr.u_axi_m_read.M_ARREADY
+tb_axi_mr.u_axi_m_read.M_ARVALID
+tb_axi_mr.u_axi_m_read.M_ARSIZE[2:0]
+@22
+tb_axi_mr.u_axi_m_read.M_ARLEN[7:0]
+@200
+-
+-Data
+@22
+tb_axi_mr.u_axi_m_read.M_RDATA[31:0]
+@28
+tb_axi_mr.u_axi_m_read.M_RREADY
+tb_axi_mr.u_axi_m_read.M_RVALID
+tb_axi_mr.u_axi_m_read.M_RLAST
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,75 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Sat Nov  1 14:11:00 2025
+[*]
+[dumpfile] "/mnt/d/OneDrive/ドキュメント/記録簿/SPIN/axi/tb/sim_build/axi_m_write.vcd"
+[dumpfile_mtime] "Sat Nov  1 14:06:11 2025"
+[dumpfile_size] 42214
+[savefile] "/mnt/d/OneDrive/ドキュメント/記録簿/SPIN/axi/tb/write_sig.gtkw"
+[timestart] 0
+[size] 1492 751
+[pos] 0 481
+*-19.000000 2790000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_axi_mw.
+[sst_width] 273
+[signals_width] 198
+[sst_expanded] 1
+[sst_vpaned_height] 198
+@200
+-
+@28
+tb_axi_mw.u_axi_m_write.M_ACLK
+tb_axi_mw.u_axi_m_write.M_ARESETN
+@200
+-
+@28
+tb_axi_mw.u_axi_m_write.i_wen
+@22
+tb_axi_mw.u_axi_m_write.i_write_size[31:0]
+@28
+tb_axi_mw.u_axi_m_write.i_fixed_burst
+tb_axi_mw.u_axi_m_write.r_wstate[2:0]
+tb_axi_mw.u_axi_m_write.o_wdone
+tb_axi_mw.u_axi_m_write.r_writes_done
+tb_axi_mw.u_axi_m_write.r_burst_addr
+@29
+tb_axi_mw.u_axi_m_write.r_burst_busy
+@200
+-
+@22
+tb_axi_mw.u_axi_m_write.i_fifo_data[31:0]
+@28
+tb_axi_mw.u_axi_m_write.i_fifo_empty
+tb_axi_mw.u_axi_m_write.o_fifo_en
+@200
+-
+-Addr
+@22
+tb_axi_mw.u_axi_m_write.M_AWADDR[31:0]
+@28
+tb_axi_mw.u_axi_m_write.M_AWBURST[1:0]
+tb_axi_mw.u_axi_m_write.M_AWSIZE[2:0]
+@22
+tb_axi_mw.u_axi_m_write.M_AWLEN[7:0]
+@28
+tb_axi_mw.u_axi_m_write.M_AWREADY
+tb_axi_mw.u_axi_m_write.M_AWVALID
+@200
+-
+-Data
+@22
+tb_axi_mw.u_axi_m_write.M_WDATA[31:0]
+tb_axi_mw.u_axi_m_write.M_WSTRB[3:0]
+@28
+tb_axi_mw.u_axi_m_write.M_WREADY
+tb_axi_mw.u_axi_m_write.M_WVALID
+tb_axi_mw.u_axi_m_write.M_WLAST
+@200
+-
+-Response
+@28
+tb_axi_mw.u_axi_m_write.M_BRESP[1:0]
+tb_axi_mw.u_axi_m_write.M_BREADY
+tb_axi_mw.u_axi_m_write.M_BVALID
+[pattern_trace] 1
+[pattern_trace] 0
