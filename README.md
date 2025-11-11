@@ -25,3 +25,8 @@ Verified AXI4-Lite Write Sequence.
 11/5  
 First commit.
   
+  
+11/11  
+Added top module.  
+  
+
