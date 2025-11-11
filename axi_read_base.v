@@ -4,7 +4,6 @@ module axi_m_read #(
 	parameter integer	DATA_WIDTH		=	32,
 
 	parameter integer	ID_WIDTH		=	1,
-	parameter integer	AUSER_WIDTH		=	1,
 	parameter integer	USER_WIDTH		=	1
 ) (
 	// Control Signals
@@ -36,7 +35,7 @@ module axi_m_read #(
 	output	[3:0]				M_ARCACHE,
 	output	[2:0]				M_ARPROT,
 	output	[3:0]				M_ARQOS,
-	output	[AUSER_WIDTH-1:0]	M_ARUSER,
+	output	[USER_WIDTH-1:0]	M_ARUSER,
 	output						M_ARVALID,
 	input						M_ARREADY,
 	// - Data

@@ -4,9 +4,7 @@ module axi_m_write #(
 	parameter integer	DATA_WIDTH		=	32,
 
 	parameter integer	ID_WIDTH		=	1,
-	parameter integer	AUSER_WIDTH		=	1,
-	parameter integer	USER_WIDTH		=	1,
-	parameter integer	BUSER_WIDTH		=	1
+	parameter integer	USER_WIDTH		=	1
 ) (
 	// Control Signals
 	input						i_wen,
@@ -36,7 +34,7 @@ module axi_m_write #(
 	output						M_AWLOCK,
 	output	[3:0]				M_AWCACHE,
 	output	[2:0]				M_AWQOS,
-	output	[AUSER_WIDTH-1:0]	M_AWUSER,
+	output	[USER_WIDTH-1:0]	M_AWUSER,
 	output	[2:0]				M_AWPROT,
 	output						M_AWVALID,
 	input						M_AWREADY,
@@ -50,7 +48,7 @@ module axi_m_write #(
 	// - Response
 	input	[ID_WIDTH-1:0]		M_BID,
 	input	[1:0]				M_BRESP,
-	input	[BUSER_WIDTH-1:0]	M_BUSER,
+	input	[USER_WIDTH-1:0]	M_BUSER,
 	input						M_BVALID,
 	output						M_BREADY
 );
