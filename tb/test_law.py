@@ -42,11 +42,11 @@ async def test_law(dut):
 	dut.i_wen.value = 1
 
 	# Wait for some time to allow processing
-	await Timer(15000, units="ns")
+	await Timer(15001, units="ns")
 
 	dut.i_wen.value = 0
 
-	await Timer(200, units="ns")
+	await Timer(199, units="ns")
 
 	# Here you would typically check the results of the read operation
 	# For example, verify data received matches expected values
