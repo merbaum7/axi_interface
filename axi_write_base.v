@@ -7,7 +7,7 @@ module axi_m_write #(
 	parameter integer	USER_WIDTH		=	1
 ) (
 	// Control Signals
-	input						i_wen,
+	input						i_wstart,
 	input	[ADDR_WIDTH-1:0]	i_start_address,
 	input	[31:0]				i_write_size,
 	output						o_wdone,
@@ -131,7 +131,7 @@ module axi_m_write #(
 		end else begin
 			case (r_wstate)
 				IDLE: begin				// 待機状態: 書き込み要求待ち
-					if (i_wen) begin
+					if (i_wstart) begin
 						r_total_size	<=	i_write_size;
 						r_rem_size		<=	i_write_size;
 						r_wstate		<=	INIT_WRITE;
@@ -177,7 +177,7 @@ module axi_m_write #(
 					end 
 				end
 				WRITE_END: begin
-					if(~i_wen)
+					if(~i_wstart)
 						r_wstate	<=	GAP;
 				end
 				GAP: begin
@@ -228,7 +228,7 @@ module axi_m_write #(
 				if ( M_ARESETN == 0 ) begin
 					r_awaddr	<=	32'b0;
 				end else if (r_wstate == IDLE) begin
-					if (i_wen)
+					if (i_wstart)
 						r_awaddr	<=	i_start_address;
 				end else if (M_AWREADY && r_awvalid) begin
 					if (i_fixed_burst)

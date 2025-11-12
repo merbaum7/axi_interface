@@ -10,7 +10,7 @@ module axi_master #(
 	parameter integer	USER_WIDTH		=	1
 ) (
 	// Control Signals (write)
-	input						i_wen,
+	input						i_wstart,
 	input	[ADDR_WIDTH-1:0]	i_wstart_address,
 	input	[31:0]				i_write_size,
 	output						o_wdone,
@@ -24,7 +24,7 @@ module axi_master #(
 
 
     // Control Signals (read)
-	input						i_ren,
+	input						i_rstart,
 	input	[ADDR_WIDTH-1:0]	i_rstart_address,
 	input	[31:0]				i_read_size,
 	output						o_rdone,
@@ -105,7 +105,7 @@ module axi_master #(
 					.ID_WIDTH			(ID_WIDTH),
 					.USER_WIDTH			(USER_WIDTH)
 				) u_axi_write_base (
-					.i_wen				(i_wen),
+					.i_wstart			(i_wstart),
 					.i_start_address	(i_wstart_address),
 					.i_write_size		(i_write_size),
 					.o_wdone			(o_wdone),
@@ -176,7 +176,7 @@ module axi_master #(
 					.ID_WIDTH			(ID_WIDTH),
 					.USER_WIDTH			(USER_WIDTH)
 				) u_axi_read_base (
-					.i_ren				(i_ren),
+					.i_rstart			(i_rstart),
 					.i_start_address	(i_rstart_address),
 					.i_read_size		(i_read_size),
 					.o_rdone			(o_rdone),

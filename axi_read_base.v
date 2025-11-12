@@ -7,7 +7,7 @@ module axi_m_read #(
 	parameter integer	USER_WIDTH		=	1
 ) (
 	// Control Signals
-	input						i_ren,
+	input						i_rstart,
 	input	[ADDR_WIDTH-1:0]	i_start_address,
 	input	[31:0]				i_read_size,
 	output						o_rdone,
@@ -116,7 +116,7 @@ module axi_m_read #(
 		end else begin
 			case (r_rstate)
 				IDLE: begin				// 待機状態: 読み出し要求待ち
-					if (i_ren) begin
+					if (i_rstart) begin
 						r_total_size	<=	i_read_size;
 						r_rem_size		<=	i_read_size;
 						r_rstate		<=	INIT_READ;
@@ -160,7 +160,7 @@ module axi_m_read #(
 					end 
 				end
 				READ_END: begin
-					if(~i_ren)
+					if(~i_rstart)
 						r_rstate	<=	GAP;
 				end
 				GAP: begin
@@ -196,7 +196,7 @@ module axi_m_read #(
 				if ( M_ARESETN == 0 ) begin
 					r_araddr	<=	32'b0;
 				end else if (r_rstate == IDLE) begin
-					if (i_ren)
+					if (i_rstart)
 						r_araddr	<=	i_start_address;
 				end else if (M_ARREADY && r_arvalid) begin
 					if (i_fixed_burst)
