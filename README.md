@@ -34,3 +34,7 @@ Added top module.
 Fixed start enable signal port name.  
   
   
+11/14  
+Fixed typo and added generate label.  
+  
+  
