@@ -38,3 +38,7 @@ Fixed start enable signal port name.
 Fixed typo and added generate label.  
   
   
+12/04  
+Fixed terms using r/w start signal of top module.  
+  
+  

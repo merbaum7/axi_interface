@@ -96,10 +96,7 @@ module axi_m_read #(
 	//Read and Read Response
 	assign M_RREADY			=	r_rready;
 
-	assign M_RRESP			=	2'b00;	// OKAY
-
 	// Unused
-	assign M_RUSER		= 'b0;
 	assign M_ARUSER		= 'b0;
 	assign M_ARLOCK		= 1'b0;
 	assign M_ARCACHE	= 4'b0010;
@@ -212,7 +209,7 @@ module axi_m_read #(
 				if ( M_ARESETN == 0 ) begin
 					r_araddr	<=	32'b0;
 				end else if (r_rstate == IDLE) begin
-					if (i_ren)
+					if (i_rstart)
 						r_araddr	<=	i_start_address;
 				end else if (M_ARREADY && r_arvalid) begin
 					if (M_ARBURST == 2'b00)

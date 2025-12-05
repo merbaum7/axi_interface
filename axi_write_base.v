@@ -109,11 +109,8 @@ module axi_m_write #(
 	assign o_fifo_en		=	wnext;
 
 	assign M_BREADY			=	r_bready;
-	assign M_BRESP			=	2'b00;	// OKAY
 
 	// Unused
-	assign M_BID		= 'b0;
-	assign M_BUSER		= 'b0;
 	assign M_WUSER		= 'b0;
 	assign M_AWUSER		= 'b0;
 	assign M_AWLOCK		= 1'b0;
@@ -244,7 +241,7 @@ module axi_m_write #(
 				if ( M_ARESETN == 0 ) begin
 					r_awaddr	<=	32'b0;
 				end else if (r_wstate == IDLE) begin
-					if (i_wen)
+					if (i_wstart)
 						r_awaddr	<=	i_start_address;
 				end else if (M_AWREADY && r_awvalid) begin
 					if (M_AWBURST == 2'b00)

@@ -96,7 +96,7 @@ module axi_master #(
 
 	generate
 		if (AXI_FULL == "ON" && MAX_BURST_LEN != 0 || AXI_FULL == "OFF" && MAX_BURST_LEN == 0) begin : gen_axi
-			if (AXI_RW == "R/W" || AXI_RW == "W") begin : maxi_write
+			if (AXI_RW == "R/W" || AXI_RW == "W") begin : gen_axi_write
 				axi_m_write #(
 					.MAX_BURST_LEN		(MAX_BURST_LEN),
 
@@ -114,7 +114,7 @@ module axi_master #(
 
 					.i_fifo_empty		(i_wfifo_empty),
 					.i_fifo_data		(i_wfifo_data),
-					.o_fifo_en			(i_wfifo_wen),
+					.o_fifo_en			(o_wfifo_wen),
 
 					.M_ACLK				(M_ACLK),
 					.M_ARESETN			(M_ARESETN),
@@ -167,7 +167,7 @@ module axi_master #(
 				assign	M_AXI_BREADY	=	1'bx;
 			end
 
-			if (AXI_RW == "R/W" || AXI_RW == "R") begin : maxi_read
+			if (AXI_RW == "R/W" || AXI_RW == "R") begin : gen_axi_read
 				axi_m_read #(
 					.MAX_BURST_LEN		(MAX_BURST_LEN),
 
@@ -228,8 +228,8 @@ module axi_master #(
 				assign	M_AXI_ARVALID	=	1'bx;
 				assign	M_AXI_RREADY	=	1'bx;
 			end
-		end else begin : undefined_parameter
-			unimplement_module error();
+		end else begin
+			error uninplement_module();
 		end
 	endgenerate
 	
