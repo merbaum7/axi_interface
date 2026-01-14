@@ -324,8 +324,6 @@ module axi_m_write #(
 			// 		end
 			// 	end
 			// end
-
-			assign	M_WLAST	=	r_burst_count == M_AWLEN;
 		end
 	endgenerate
 
