@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
-[*] Sat Nov  1 14:11:00 2025
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Wed Jan 14 07:59:09 2026
 [*]
-[dumpfile] "/mnt/d/OneDrive/ドキュメント/記録簿/SPIN/axi/tb/sim_build/axi_m_write.vcd"
-[dumpfile_mtime] "Sat Nov  1 14:06:11 2025"
-[dumpfile_size] 42214
-[savefile] "/mnt/d/OneDrive/ドキュメント/記録簿/SPIN/axi/tb/write_sig.gtkw"
+[dumpfile] "/mnt/c/Users/Takano/OneDrive/ドキュメント/記録簿/STELLAR/axi/tb/sim_build/axi_m_write.vcd"
+[dumpfile_mtime] "Wed Jan 14 07:56:47 2026"
+[dumpfile_size] 57956
+[savefile] "/mnt/c/Users/Takano/OneDrive/ドキュメント/記録簿/STELLAR/axi/tb/write_sig.gtkw"
 [timestart] 0
 [size] 1492 751
-[pos] 0 481
-*-19.000000 2790000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 157 483
+*-19.000000 2680000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_axi_mw.
 [sst_width] 273
 [signals_width] 198
@@ -22,8 +22,6 @@ tb_axi_mw.u_axi_m_write.M_ACLK
 tb_axi_mw.u_axi_m_write.M_ARESETN
 @200
 -
-@28
-tb_axi_mw.u_axi_m_write.i_wen
 @22
 tb_axi_mw.u_axi_m_write.i_write_size[31:0]
 @28
@@ -32,8 +30,9 @@ tb_axi_mw.u_axi_m_write.r_wstate[2:0]
 tb_axi_mw.u_axi_m_write.o_wdone
 tb_axi_mw.u_axi_m_write.r_writes_done
 tb_axi_mw.u_axi_m_write.r_burst_addr
-@29
 tb_axi_mw.u_axi_m_write.r_burst_busy
+@23
+tb_axi_mw.u_axi_m_write.r_rem_size[31:0]
 @200
 -
 @22

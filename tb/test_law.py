@@ -13,7 +13,7 @@ async def test_law(dut):
 	# Start clock
 	cocotb.start_soon(Clock(dut.M_ACLK, 10, units="ns").start())
 
-	dut.i_wen.value = 0
+	dut.i_wstart.value = 0
 	dut.i_fixed_burst.value = 0
 	dut.M_ARESETN.value = 0
 	await Timer(50, units="ns")
@@ -39,12 +39,12 @@ async def test_law(dut):
 	await RisingEdge(dut.M_ACLK)
 	await RisingEdge(dut.M_ACLK)
 
-	dut.i_wen.value = 1
+	dut.i_wstart.value = 1
 
 	# Wait for some time to allow processing
 	await Timer(15001, units="ns")
 
-	dut.i_wen.value = 0
+	dut.i_wstart.value = 0
 
 	await Timer(199, units="ns")
 

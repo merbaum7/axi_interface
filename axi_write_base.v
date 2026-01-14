@@ -81,18 +81,20 @@ module axi_m_write #(
 	reg							r_burst_resp;
 
 	reg							r_awvalid;
-	reg							r_wvalid;
+	wire						w_wvalid;
 	reg							r_bready;
 
 	reg 	[ADDR_WIDTH-1 : 0] 	r_awaddr;
 
-	wire						wnext = M_WREADY && r_wvalid;
+	wire						wnext = M_WREADY && w_wvalid;
 
 	//Read Address (AR)
 	assign M_AWID			=	'b0;
 	assign M_AWADDR			=	r_awaddr;
 	//Burst length
-	assign M_AWLEN			=	(r_rem_size > MAX_BURST_LEN*(DATA_WIDTH/8)) ? MAX_BURST_LEN-1 : ((r_rem_size/(DATA_WIDTH/8))-1);
+	assign M_AWLEN			=	(r_rem_size > MAX_BURST_LEN*(DATA_WIDTH/8)) ? MAX_BURST_LEN-1 : 
+								(r_rem_size == 0) ? 8'd0 : 
+								((r_rem_size/(DATA_WIDTH/8))-1);
 	//Size should be C_M_AXI_DATA_WIDTH, in 2^n bytes, otherwise narrow bursts are used
 	assign M_AWSIZE			=	clogb2((DATA_WIDTH/8)-1);
 	//INCR burst type 00:Fixed, 01:Increment
@@ -101,9 +103,8 @@ module axi_m_write #(
 	//Write address request valid Response
 	assign M_AWVALID		=	r_awvalid;
 	//Write and Read Response
-	assign M_WVALID			=	r_wvalid;
+	assign M_WVALID			=	w_wvalid;
 	assign M_WSTRB			=	{(DATA_WIDTH/8){1'b1}};
-	assign M_WLAST			=	r_burst_count == M_AWLEN;
 	
 	assign M_WDATA			=	i_fifo_data;
 	assign o_fifo_en		=	wnext;
@@ -207,7 +208,7 @@ module axi_m_write #(
 			always @(posedge M_ACLK) begin 
 				if ( M_ARESETN == 0 ) begin
 					r_awvalid <= 1'b0;
-				end else if ( ~r_awvalid && r_burst_addr && ~r_wvalid ) begin
+				end else if ( ~r_awvalid && r_burst_addr && ~w_wvalid ) begin
 					r_awvalid <= 1'b1;
 				end else if ( M_AWREADY && r_awvalid ) begin
 					r_awvalid <= 1'b0;
@@ -286,17 +287,19 @@ module axi_m_write #(
 				end
 			end
 
-			always @(posedge M_ACLK) begin 
-				if ( M_ARESETN == 0 ) begin
-					r_wvalid <= 1'b0;
-				end else if ( ~r_wvalid && r_burst_addr ) begin
-					r_wvalid <= !i_fifo_empty;
-				end else if ( M_WREADY && r_wvalid ) begin
-					r_wvalid <= 1'b0;
-				end else begin
-					r_wvalid <= r_wvalid;
-				end
-			end
+			assign	w_wvalid	=	(r_burst_busy && M_WREADY) ? !i_fifo_empty : 1'b0;
+			assign	M_WLAST		=	0;
+			// always @(posedge M_ACLK) begin 
+			// 	if ( M_ARESETN == 0 ) begin
+			// 		r_wvalid <= 1'b0;
+			// 	end else if ( ~r_wvalid && r_burst_addr ) begin
+			// 		r_wvalid <= !i_fifo_empty;
+			// 	end else if ( M_WREADY && r_wvalid ) begin
+			// 		r_wvalid <= 1'b0;
+			// 	end else begin
+			// 		r_wvalid <= r_wvalid;
+			// 	end
+			// end
 		end else begin
 			always @(posedge M_ACLK) begin	// burst busy flag
 				if (M_ARESETN == 0) begin
@@ -308,17 +311,19 @@ module axi_m_write #(
 				end
 			end
 
-			always @(posedge M_ACLK) begin		// write ready signal
-				if (M_ARESETN == 0 ) begin
-					r_wvalid <= 1'b0;
-				end else if (r_burst_busy && M_WREADY) begin
-					if (r_wvalid && M_WLAST) begin
-						r_wvalid <= 1'b0;
-					end else begin
-						r_wvalid <= !i_fifo_empty;
-					end
-				end
-			end
+			assign	w_wvalid	=	(r_burst_busy && M_WREADY) ? !i_fifo_empty : 1'b0;
+			assign	M_WLAST		=	(r_burst_count == M_AWLEN) && r_burst_busy;
+			// always @(posedge M_ACLK) begin		// write ready signal
+			// 	if (M_ARESETN == 0 ) begin
+			// 		r_wvalid <= 1'b0;
+			// 	end else if (r_burst_busy && M_WREADY) begin
+			// 		if (r_wvalid && M_WLAST) begin
+			// 			r_wvalid <= 1'b0;
+			// 		end else begin
+			// 			r_wvalid <= !i_fifo_empty;
+			// 		end
+			// 	end
+			// end
 
 			assign	M_WLAST	=	r_burst_count == M_AWLEN;
 		end
@@ -359,7 +364,7 @@ module axi_m_write #(
 	always @(posedge M_ACLK) begin
 		if ( M_ARESETN == 0 ) begin
 			r_bready <= 1'b0;
-		end else if ( M_BVALID ) begin
+		end else if ( M_BVALID && r_wstate == WRITE_DATA_END ) begin
 			r_bready <= 1'b1;
 		end else if ( r_bready ) begin
 			r_bready <= 1'b0;

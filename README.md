@@ -42,3 +42,6 @@ Fixed typo and added generate label.
 Fixed terms using r/w start signal of top module.  
   
   
+01/14  
+Fixed write control (change sequential to combinatorial:wvalid).  
+

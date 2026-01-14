@@ -3,7 +3,7 @@
 
 module tb_axi_mw (
 	// Control Signals
-	input						i_wen,
+	input						i_wstart,
 	input	[31:0]				i_start_address,
 	input	[31:0]				i_write_size,
 	output						o_wdone,
@@ -87,7 +87,7 @@ module tb_axi_mw (
 		.ADDR_WIDTH			(32),
 		.DATA_WIDTH			(32)
 	) u_axi_m_write (
-		.i_wen				(i_wen),
+		.i_wstart			(i_wstart),
 		.i_start_address	(i_start_address),
 		.i_write_size		(i_write_size),
 		.o_wdone			(o_wdone),
