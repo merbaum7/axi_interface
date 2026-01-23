@@ -12,6 +12,7 @@ module axi_m_read #(
 	input	[31:0]				i_read_size,
 	output						o_rdone,
 
+	output	[31:0]				o_rem_read_size,
 	input						i_fixed_burst,
 
 	// FIFO Interface
@@ -80,6 +81,7 @@ module axi_m_read #(
 	reg 	[ADDR_WIDTH-1 : 0] 	r_araddr;
 
 	wire						rnext = M_RVALID && r_rready;
+	assign						o_rem_read_size = r_rem_size;
 
 	//Read Address (AR)
 	assign M_ARID			=	'b0;

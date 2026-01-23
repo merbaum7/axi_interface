@@ -45,3 +45,6 @@ Fixed terms using r/w start signal of top module.
 01/14  
 Fixed write control (change sequential to combinatorial:wvalid).  
 
+
+01/23  
+Added read/write remaining data size port.  

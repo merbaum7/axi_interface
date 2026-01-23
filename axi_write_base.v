@@ -12,6 +12,7 @@ module axi_m_write #(
 	input	[31:0]				i_write_size,
 	output						o_wdone,
 
+	output	[31:0]				o_rem_write_size,
 	input						i_fixed_burst,
 
 	// FIFO Interface
@@ -87,6 +88,7 @@ module axi_m_write #(
 	reg 	[ADDR_WIDTH-1 : 0] 	r_awaddr;
 
 	wire						wnext = M_WREADY && w_wvalid;
+	assign						o_rem_write_size = r_rem_size;
 
 	//Read Address (AR)
 	assign M_AWID			=	'b0;
