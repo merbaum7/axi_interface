@@ -53,3 +53,7 @@ Added read/write remaining data size port.
 2026/5/18  
 Change Lisence.  
 (From MIT Lisence to SHL-2.1)  
+
+
+2026/9/05  
+Added small data read/write function.  

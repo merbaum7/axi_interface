@@ -60,7 +60,18 @@ module axi_m_write #(
 	end 
 	endfunction 
 
-	// Read State list
+	function automatic [DATA_WIDTH/8-1:0] make_wstrb;
+		input [31:0] valid_bytes;
+		integer i;
+		begin
+			for (i = 0; i < DATA_WIDTH/8; i = i + 1)
+				make_wstrb[i] = (i < valid_bytes);
+		end
+	endfunction
+
+	localparam integer	DATA_BYTES = DATA_WIDTH / 8;
+
+	// Write State list
 	parameter	[2:0]	IDLE			=	3'b000, 
 						INIT_WRITE		=	3'b001,
 						WRITE_DATA		=	3'b010,
@@ -90,15 +101,16 @@ module axi_m_write #(
 	wire						wnext = M_WREADY && w_wvalid;
 	assign						o_rem_write_size = r_rem_size;
 
+	wire 	[31:0]				w_rem_beats = (r_rem_size == 0) ? 32'd0 : (r_rem_size + DATA_BYTES - 1) / DATA_BYTES;
+
 	//Read Address (AR)
 	assign M_AWID			=	'b0;
 	assign M_AWADDR			=	r_awaddr;
 	//Burst length
-	assign M_AWLEN			=	(r_rem_size > MAX_BURST_LEN*(DATA_WIDTH/8)) ? MAX_BURST_LEN-1 : 
-								(r_rem_size == 0) ? 8'd0 : 
-								((r_rem_size/(DATA_WIDTH/8))-1);
+	assign M_AWLEN			=	(r_rem_size > MAX_BURST_LEN*DATA_BYTES) ? MAX_BURST_LEN-1 : 
+								(w_rem_beats == 0) ? 8'd0 : w_rem_beats - 1;
 	//Size should be C_M_AXI_DATA_WIDTH, in 2^n bytes, otherwise narrow bursts are used
-	assign M_AWSIZE			=	clogb2((DATA_WIDTH/8)-1);
+	assign M_AWSIZE			=	clogb2(DATA_BYTES-1);
 	//INCR burst type 00:Fixed, 01:Increment
 	assign M_AWBURST		=	(i_fixed_burst) ? 2'b00 : 2'b01;
 
@@ -106,7 +118,7 @@ module axi_m_write #(
 	assign M_AWVALID		=	r_awvalid;
 	//Write and Read Response
 	assign M_WVALID			=	w_wvalid;
-	assign M_WSTRB			=	{(DATA_WIDTH/8){1'b1}};
+	assign M_WSTRB			=	(M_WLAST && (r_rem_size < DATA_BYTES)) ? make_wstrb(r_rem_size) : {(DATA_WIDTH/8){1'b1}};
 	
 	assign M_WDATA			=	i_fifo_data;
 	assign o_fifo_en		=	wnext;

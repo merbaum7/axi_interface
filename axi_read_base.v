@@ -55,6 +55,8 @@ module axi_m_read #(
 	end 
 	endfunction 
 
+	localparam integer	DATA_BYTES = DATA_WIDTH / 8;
+
 	// Read State list
 	parameter	[2:0]	IDLE			=	3'b000, 
 						INIT_READ		=	3'b001,
@@ -83,13 +85,16 @@ module axi_m_read #(
 	wire						rnext = M_RVALID && r_rready;
 	assign						o_rem_read_size = r_rem_size;
 
+	wire 	[31:0]				w_rem_beats = (r_rem_size == 0) ? 32'd0 : (r_rem_size + DATA_BYTES - 1) / DATA_BYTES;
+
 	//Read Address (AR)
 	assign M_ARID			=	'b0;
 	assign M_ARADDR			=	r_araddr;
 	//Burst length
-	assign M_ARLEN			=	(r_rem_size > MAX_BURST_LEN*(DATA_WIDTH/8)) ? MAX_BURST_LEN-1 : ((r_rem_size/(DATA_WIDTH/8))-1);
+	assign M_ARLEN			=	(r_rem_size > MAX_BURST_LEN*DATA_BYTES) ? MAX_BURST_LEN-1 
+							:	(w_rem_beats == 0) ? 8'd0 : w_rem_beats - 1;
 	//Size should be C_M_AXI_DATA_WIDTH, in 2^n bytes, otherwise narrow bursts are used
-	assign M_ARSIZE			=	clogb2((DATA_WIDTH/8)-1);
+	assign M_ARSIZE			=	clogb2(DATA_BYTES-1);
 	//INCR burst type 00:Fixed, 01:Increment
 	assign M_ARBURST		=	(i_fixed_burst) ? 2'b00 : 2'b01;
 
