@@ -103,7 +103,7 @@ module axi_m_write #(
 
 	wire 	[31:0]				w_rem_beats = (r_rem_size == 0) ? 32'd0 : (r_rem_size + DATA_BYTES - 1) / DATA_BYTES;
 
-	//Read Address (AR)
+	//Write Address (AW)
 	assign M_AWID			=	'b0;
 	assign M_AWADDR			=	r_awaddr;
 	//Burst length
